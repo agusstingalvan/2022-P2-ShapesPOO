@@ -1,4 +1,8 @@
 class Shape {
+    constructor(){
+        this.canvas = document.getElementById("canvas");
+        this.ctx = canvas.getContext("2d")
+    }
     area() {
         return 0;
     }
@@ -9,6 +13,13 @@ class Shape {
   
     toString() {
         return Object.getPrototypeOf(this).constructor.name;
+    }
+
+    imprimir() {
+        console.log(`Figura: ${this.toString()} - Area: ${this.area()} - Perimeter: ${this.perimeter()}`)
+    }
+    dibujar(){
+        return 0
     }
 }
   
@@ -37,6 +48,9 @@ class Rectangle extends Shape {
     perimeter() {
         return 2 * this.width + 2 * this.height;
     }
+    dibujar(x=0, y=0){
+        this.ctx.fillRect(x, y, this.width, this.height)
+    }
 }
   
 class Square extends Rectangle {
@@ -57,7 +71,29 @@ class Triangle extends Shape {
     }
 }
 
-export {Circle, Rectangle, Square, Triangle};
+class Paralelogramo extends Rectangle{
+    constructor(w, h){
+        super(w, h)
+    }
+}
+class Rombo extends Rectangle{
+    constructor(w, h, lado1, lado2, lado3, lado4){
+        super(w, h)
+        this.lado1 = lado1;
+        this.lado2 = lado2;
+        this.lado3 = lado3;
+        this.lado4 = lado4;
+    }
+    area(){
+        const diagonalMayor = this.height;
+        const diagonalMenor = this.width;
+        return diagonalMayor * diagonalMenor / 2;
+    }
+    perimeter(){
+        return this.lado1 + this.lado2 + this.lado3 + this.lado4 
+    }
+}
+export {Circle, Rectangle, Square, Triangle, Paralelogramo, Rombo};
 
 
 
